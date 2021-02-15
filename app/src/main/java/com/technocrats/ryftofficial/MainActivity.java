@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.googleSignInButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signIn();
