@@ -57,7 +57,7 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/googleSignInButton"
+            android:id="@+id/sign_in_button"
             android:layout_width="@dimen/base_login_button_width"
             android:layout_height="@dimen/base_login_button_height"
             android:layout_gravity="center_horizontal"
@@ -103,13 +103,15 @@
                 android:paddingRight="@dimen/large_intrinsic_padding"
                 app:srcCompat="@drawable/ic_bt_login_facebook" />
 
-            <TextView
+
+
+            <com.facebook.login.widget.LoginButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_centerInParent="true"
-                android:text="Login with facebook"
-                android:textColor="@drawable/login_button_text_selector"
-                android:textStyle="bold" />
+                android:id="@+id/facebookLoginInButton"
+                />
 
         </RelativeLayout>
 
