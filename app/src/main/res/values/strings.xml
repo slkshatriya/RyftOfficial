@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RyftOfficial</string>
+    <string name="facebook_app_id" translatable="false">2719421008319342</string>
 </resources>
