@@ -9,8 +9,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class FeedFragment extends Fragment {
+    List<Model> ModelList=new ArrayList<>();
+
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
     CustomAdapter adapter;
@@ -25,6 +30,15 @@ public class FeedFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
 
+        //add data into model here
+        Model model=new Model();
+
+        ModelList.add(model);
+
+        adapter=new CustomAdapter(FeedFragment.this,ModelList);
+        mRecyclerView.setAdapter(adapter);
+
         return view;
     }
+
 }
