@@ -1,13 +1,39 @@
 package com.technocrats.ryftofficial;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
+    TextView mTitle, TechUsed1,mTechUsed2;
+    ImageView mProjectImg;
+    Button mSeeDetails;
+    View mView;
+
     public ViewHolder(@NonNull View itemView) {
         super(itemView);
+
+        mView=itemView;
+
+        mTitle=itemView.findViewById(R.id.ProjectTitle);
+        TechUsed1 =itemView.findViewById(R.id.techUsed1);
+        mTechUsed2=itemView.findViewById(R.id.techUsed2);
+
+        mProjectImg=itemView.findViewById(R.id.projectImg);
+
+        mSeeDetails=itemView.findViewById(R.id.seeDetails);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mClickListener.onItemClick(view, getAdapterPosition());
+            }
+        });
+
     }
 
     private com.technocrats.ryftofficial.ViewHolder.ClickListener mClickListener;
@@ -21,3 +47,4 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         mClickListener = clickListener;
     }
 }
+
