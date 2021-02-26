@@ -7,7 +7,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+    FeedFragment feedItem;
+    List<Model> modelList;
+
+    public CustomAdapter(FeedFragment feedItem,List<Model> modelList)
+    {
+        this.feedItem=feedItem;
+        this.modelList=modelList;
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -24,17 +34,23 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
             }
         });
+
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.mTitle.setText(modelList.get(position).getTitle());
+        holder.TechUsed1.setText(modelList.get(position).getTechUsed1());
+        holder.mTechUsed2.setText(modelList.get(position).getTechUsed2());
+        holder.mProjectImg.setImageDrawable(null);
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return modelList.size();
     }
 
 }
+
