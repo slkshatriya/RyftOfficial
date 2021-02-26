@@ -5,12 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class FeedFragment extends Fragment {
@@ -19,26 +19,34 @@ public class FeedFragment extends Fragment {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
     CustomAdapter adapter;
+    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        view = inflater.inflate(R.layout.fragment_feed, container, false);
 
-        mRecyclerView= view.findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(layoutManager);
 
-        //add data into model here
-        Model model=new Model();
+        List<Model> productsList = new ArrayList<>();
+        productsList.add(new Model("android", "java", "Android Develop"));
+        productsList.add(new Model("android", "java", "Android Develop"));
+        productsList.add(new Model("android", "java", "Android Develop"));
+        productsList.add(new Model("android", "java", "Android Develop"));
 
-        ModelList.add(model);
-
-        adapter=new CustomAdapter(FeedFragment.this,ModelList);
-        mRecyclerView.setAdapter(adapter);
+        setProdItemRecycler(productsList);
 
         return view;
+    }
+
+    private void setProdItemRecycler(List<Model> productsList){
+
+        mRecyclerView= view.findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        mRecyclerView.setLayoutManager(layoutManager);
+        adapter = new CustomAdapter(this, productsList);
+        mRecyclerView.setAdapter(adapter);
+
     }
 
 }
