@@ -1,5 +1,9 @@
 package com.technocrats.ryftofficial;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +11,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
     FeedFragment feedItem;
@@ -40,11 +49,19 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Bitmap bitmap;
+        ImageDownloader task= new ImageDownloader();
+        try {
+            bitmap=task.execute(modelList.get(position).getProjectImageUrl()).get();
+        } catch (ExecutionException | InterruptedException e) {
+            bitmap=null;
+            e.printStackTrace();
+        }
         holder.mTitle.setText(modelList.get(position).getTitle());
         holder.TechUsed1.setText(modelList.get(position).getTechUsed1());
         holder.mTechUsed2.setText(modelList.get(position).getTechUsed2());
-        holder.mProjectImg.setImageDrawable(null);
-
+        holder.mProjectImg.setImageBitmap(bitmap);
+        
     }
 
     @Override
@@ -52,5 +69,25 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         return modelList.size();
     }
 
+    public static class ImageDownloader extends AsyncTask<String,Void,Bitmap>
+    {
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            try
+            {
+                URL url=new URL(urls[0]);
+                HttpURLConnection httpURLConnection= (HttpURLConnection) url.openConnection();
+                httpURLConnection.connect();
+                InputStream inputStream=httpURLConnection.getInputStream();
+                return BitmapFactory.decodeStream(inputStream);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+    }
 }
 
