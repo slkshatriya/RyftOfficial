@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
-    TextView mTitle, TechUsed1,mTechUsed2;
+    TextView mTitle, TechUsed1,TechUsed2,description;
     ImageView mProjectImg;
     Button mSeeDetails;
     View mView;
@@ -21,8 +21,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
         mTitle=itemView.findViewById(R.id.ProjectTitle);
         TechUsed1 =itemView.findViewById(R.id.techUsed1);
-        mTechUsed2=itemView.findViewById(R.id.techUsed2);
-
+        TechUsed2=itemView.findViewById(R.id.techUsed2);
+        description=itemView.findViewById(R.id.longDescription);
         mProjectImg=itemView.findViewById(R.id.projectImg);
 
         mSeeDetails=itemView.findViewById(R.id.seeDetails);
