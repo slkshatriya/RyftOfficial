@@ -1,18 +1,30 @@
 package com.technocrats.ryftofficial;
 
 public class Model {
-    String techUsed1,techUsed2,title,projectImageUrl;
+    String techUsed1,techUsed2,title,projectImageUrl,Description;
 
     public Model() {
     }
 
-    public Model(String techUsed1, String techUsed2, String title,String projectImageUrl) {
+    public Model(String techUsed1, String techUsed2, String title,String projectImageUrl,
+                 String Description) {
         this.techUsed1 = techUsed1;
         this.techUsed2 = techUsed2;
         this.title = title;
         this.projectImageUrl=projectImageUrl;
+        this.Description=Description;
     }
 
+    public String getDescription(){
+        if(Description.length() > 10)
+            return Description.substring(0,9) + "...";
+        else
+            return Description;
+        }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
+    }
 
     public String getTechUsed1()
     {
