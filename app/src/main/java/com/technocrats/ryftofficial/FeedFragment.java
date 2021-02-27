@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 public class FeedFragment extends Fragment {
-    List<Model> ModelList=new ArrayList<>();
 
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -29,10 +28,37 @@ public class FeedFragment extends Fragment {
 
 
         List<Model> productsList = new ArrayList<>();
-        productsList.add(new Model("android", "java", "Android Develop"));
-        productsList.add(new Model("android", "java", "Android Develop"));
-        productsList.add(new Model("android", "java", "Android Develop"));
-        productsList.add(new Model("android", "java", "Android Develop"));
+        FirebaseDatabase.getInstance().getReference().child("posts").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                Model model=new Model(snapshot.child("tech used 1").getValue().toString(),
+                        snapshot.child("tech used 2").getValue().toString(),
+                        snapshot.child("title").getValue().toString(),
+                        snapshot.child("projectImageUrl").getValue().toString());
+                productsList.add(model);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         setProdItemRecycler(productsList);
 
