@@ -40,11 +40,11 @@ public class FeedFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                String techUsed1=snapshot.child("tech used 1").getValue().toString();
-                String techUsed2=snapshot.child("tech used 2").getValue().toString();
-                String title=snapshot.child("title").getValue().toString();
-                String Url=snapshot.child("projectImageUrl").getValue().toString();
-                Model model=new Model(techUsed1,techUsed2,title,Url);
+                Model model=new Model(snapshot.child("tech used 1").getValue().toString(),
+                        snapshot.child("tech used 2").getValue().toString(),
+                        snapshot.child("title").getValue().toString(),
+                        snapshot.child("projectImageUrl").getValue().toString()
+                        ,snapshot.child("description").getValue().toString());
                 ModelList.add(model);
                 adapter.notifyDataSetChanged();
             }
