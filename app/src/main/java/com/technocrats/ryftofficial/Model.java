@@ -1,15 +1,16 @@
 package com.technocrats.ryftofficial;
 
 public class Model {
-    String techUsed1,techUsed2,title;
+    String techUsed1,techUsed2,title,projectImageUrl;
 
     public Model() {
     }
 
-    public Model(String techUsed1, String techUsed2, String title) {
+    public Model(String techUsed1, String techUsed2, String title,String projectImageUrl) {
         this.techUsed1 = techUsed1;
         this.techUsed2 = techUsed2;
         this.title = title;
+        this.projectImageUrl=projectImageUrl;
     }
 
 
@@ -42,4 +43,11 @@ public class Model {
         this.techUsed2 = techUsed2;
     }
 
+    public String getProjectImageUrl() {
+        return projectImageUrl;
+    }
+
+    public void setProjectImageUrl(String projectImageUrl) {
+        this.projectImageUrl = projectImageUrl;
+    }
 }
