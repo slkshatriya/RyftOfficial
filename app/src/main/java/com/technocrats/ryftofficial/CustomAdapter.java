@@ -1,9 +1,9 @@
 package com.technocrats.ryftofficial;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -59,9 +58,9 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         }
         holder.mTitle.setText(modelList.get(position).getTitle());
         holder.TechUsed1.setText(modelList.get(position).getTechUsed1());
-        holder.mTechUsed2.setText(modelList.get(position).getTechUsed2());
+        holder.TechUsed2.setText(modelList.get(position).getTechUsed2());
+        holder.description.setText(modelList.get(position).getDescription());
         holder.mProjectImg.setImageBitmap(bitmap);
-        
     }
 
     @Override
@@ -88,6 +87,8 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
             }
 
         }
+
     }
 }
+
 
