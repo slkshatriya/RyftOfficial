@@ -28,6 +28,7 @@ public class FeedFragment extends Fragment {
 
 
         List<Model> productsList = new ArrayList<>();
+        setProdItemRecycler(productsList);
         FirebaseDatabase.getInstance().getReference().child("posts").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -37,6 +38,7 @@ public class FeedFragment extends Fragment {
                         snapshot.child("title").getValue().toString(),
                         snapshot.child("projectImageUrl").getValue().toString());
                 productsList.add(model);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -60,7 +62,7 @@ public class FeedFragment extends Fragment {
             }
         });
 
-        setProdItemRecycler(productsList);
+        
 
         return view;
     }
