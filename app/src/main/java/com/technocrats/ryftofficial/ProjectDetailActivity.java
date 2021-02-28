@@ -1,7 +1,10 @@
 package com.technocrats.ryftofficial;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TextView details, dev;
     private PagerViewAdapter pagerViewAdapter;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,9 @@ public class ProjectDetailActivity extends AppCompatActivity {
         details=findViewById(R.id.details);
         dev=findViewById(R.id.dev);
         viewPager=findViewById(R.id.FragmentContainer);
+        intent=getIntent();
+
+        viewPager.setCurrentItem(0);
 
         details.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +70,6 @@ public class ProjectDetailActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }
