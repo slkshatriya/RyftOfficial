@@ -16,10 +16,7 @@ public class Model {
     }
 
     public String getDescription(){
-        if(Description.length() > 10)
-            return Description.substring(0,9) + "...";
-        else
-            return Description;
+        return Description;
         }
 
     public void setDescription(String Description) {
