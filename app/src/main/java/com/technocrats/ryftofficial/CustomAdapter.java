@@ -1,9 +1,10 @@
 package com.technocrats.ryftofficial;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import java.util.concurrent.ExecutionException;
 public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
     FeedFragment feedItem;
     List<Model> modelList;
+    Context context;
 
     public CustomAdapter(FeedFragment feedItem,List<Model> modelList)
     {
@@ -31,17 +33,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_list, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemView);
-        viewHolder.setOnClickListener(new ViewHolder.ClickListener() {
-            @Override
-            public void onItemClick() {
-
-            }
-
-            @Override
-            public void onItemClick(View view, int position) {
-
-            }
-        });
+        context=itemView.getContext();
 
         return viewHolder;
     }
@@ -59,8 +51,26 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.mTitle.setText(modelList.get(position).getTitle());
         holder.TechUsed1.setText(modelList.get(position).getTechUsed1());
         holder.TechUsed2.setText(modelList.get(position).getTechUsed2());
-        holder.description.setText(modelList.get(position).getDescription());
+        String description=modelList.get(position).getDescription();
+        if(description.length() > 10)
+            holder.description.setText(String.format("%s...", description.substring(0, 9)));
+        else
+            holder.description.setText(description);
         holder.mProjectImg.setImageBitmap(bitmap);
+        Bitmap finalBitmap = bitmap;
+        holder.mSeeDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context,ProjectDetailActivity.class);
+                intent.putExtra("title",modelList.get(position).getTitle());
+                intent.putExtra("tech used 1",modelList.get(position).getTechUsed1());
+                intent.putExtra("tech used 2",modelList.get(position).getTechUsed2());
+                intent.putExtra("description",modelList.get(position).getDescription());
+                intent.putExtra("image", finalBitmap);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -89,6 +99,5 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         }
 
     }
+
 }
-
-
