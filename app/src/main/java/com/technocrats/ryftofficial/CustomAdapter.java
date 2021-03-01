@@ -62,11 +62,17 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context,ProjectDetailActivity.class);
+                intent.putExtra("tech used 3",modelList.get(position).getTechUsed3());
+                intent.putExtra("tech used 4",modelList.get(position).getTechUsed4());
+                intent.putExtra("step 1",modelList.get(position).getStep1());
+                intent.putExtra("step 2",modelList.get(position).getStep2());
+                intent.putExtra("step 3",modelList.get(position).getStep3());
+                intent.putExtra("step 4",modelList.get(position).getStep4());
                 intent.putExtra("title",modelList.get(position).getTitle());
                 intent.putExtra("tech used 1",modelList.get(position).getTechUsed1());
                 intent.putExtra("tech used 2",modelList.get(position).getTechUsed2());
                 intent.putExtra("description",modelList.get(position).getDescription());
-                intent.putExtra("image", finalBitmap);
+                //intent.putExtra("image", finalBitmap);
                 context.startActivity(intent);
             }
         });
@@ -101,3 +107,4 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
 }
+
