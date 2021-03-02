@@ -1,13 +1,21 @@
 package com.technocrats.ryftofficial;
 
 public class Model {
-    String techUsed1,techUsed2,title,projectImageUrl,Description;
+    String techUsed1,techUsed2,title,projectImageUrl,Description,techUsed3,techUsed4,step1
+            ,step2,step3,step4;
 
     public Model() {
     }
 
     public Model(String techUsed1, String techUsed2, String title,String projectImageUrl,
-                 String Description) {
+                 String Description,String techUsed3,String techUsed4,String step1,
+                 String step2,String step3,String step4) {
+        this.step1=step1;
+        this.step2=step2;
+        this.step3=step3;
+        this.step4=step4;
+        this.techUsed3=techUsed3;
+        this.techUsed4=techUsed4;
         this.techUsed1 = techUsed1;
         this.techUsed2 = techUsed2;
         this.title = title;
@@ -15,11 +23,56 @@ public class Model {
         this.Description=Description;
     }
 
+    public String getStep1() {
+        return step1;
+    }
+
+    public String getStep2() {
+        return step2;
+    }
+
+    public String getStep3() {
+        return step3;
+    }
+
+    public String getStep4() {
+        return step4;
+    }
+
+    public String getTechUsed3() {
+        return techUsed3;
+    }
+
+    public String getTechUsed4() {
+        return techUsed4;
+    }
+
+    public void setStep1(String step1) {
+        this.step1 = step1;
+    }
+
+    public void setStep2(String step2) {
+        this.step2 = step2;
+    }
+
+    public void setStep3(String step3) {
+        this.step3 = step3;
+    }
+
+    public void setStep4(String step4) {
+        this.step4 = step4;
+    }
+
+    public void setTechUsed3(String techUsed3) {
+        this.techUsed3 = techUsed3;
+    }
+
+    public void setTechUsed4(String techUsed4) {
+        this.techUsed4 = techUsed4;
+    }
+
     public String getDescription(){
-        if(Description.length() > 10)
-            return Description.substring(0,9) + "...";
-        else
-            return Description;
+        return Description;
         }
 
     public void setDescription(String Description) {
@@ -63,3 +116,4 @@ public class Model {
         this.projectImageUrl = projectImageUrl;
     }
 }
+
