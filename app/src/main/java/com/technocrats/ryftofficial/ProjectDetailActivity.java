@@ -1,10 +1,8 @@
 package com.technocrats.ryftofficial;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -78,14 +76,14 @@ public class ProjectDetailActivity extends AppCompatActivity {
 
         if(position==0)
         {
-            details.setTextSize(25);
+            details.setTextSize(20);
             dev.setTextSize(15);
 
         }
         if(position==1)
         {
             details.setTextSize(15);
-            dev.setTextSize(25);
+            dev.setTextSize(20);
 
         }
 

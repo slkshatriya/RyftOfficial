@@ -15,7 +15,7 @@
         android:padding="7dp"
         android:layout_marginStart="25dp"
         android:layout_weight="1"
-        android:textSize="25sp">
+        android:textSize="20sp">
 
     </TextView>
     <TextView

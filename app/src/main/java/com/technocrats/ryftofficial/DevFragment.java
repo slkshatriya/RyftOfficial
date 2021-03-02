@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
@@ -26,7 +24,7 @@ public class DevFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_dev, container, false);
     }
 
-    @Override
+   /* @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         titleTextView=getView().findViewById(R.id.ProjectTitle);
@@ -48,5 +46,5 @@ public class DevFragment extends Fragment {
         techUsed2TextView.setText(intent.getExtras().getString("tech used 2"));
         techUsed3TextView.setText(intent.getExtras().getString("tech used 3"));
         techUsed4TextView.setText(intent.getExtras().getString("tech used 4"));
-    }
+    } */
 }

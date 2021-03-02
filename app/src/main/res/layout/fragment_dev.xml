@@ -6,13 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".DevFragment">
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center"
-        app:cardCornerRadius="15dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
 
 
         <RelativeLayout
@@ -185,6 +178,5 @@
 
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
 
 </ScrollView>

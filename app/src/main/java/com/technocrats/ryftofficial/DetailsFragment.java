@@ -1,7 +1,6 @@
 package com.technocrats.ryftofficial;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class DetailsFragment extends Fragment {
@@ -27,7 +24,7 @@ public class DetailsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_details, container, false);
     }
 
-    @Override
+    /*@Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         descriptionTextView=getView().findViewById(R.id.dlongDescription);
@@ -42,5 +39,5 @@ public class DetailsFragment extends Fragment {
         techUsed2TextView.setText(intent.getExtras().getString("tech used 2"));
         //imageView.setImageBitmap((Bitmap) intent.getExtras().getParcelable("image"));
 
-    }
+    }*/
 }
