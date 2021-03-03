@@ -41,7 +41,15 @@ public class FeedFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String techUsed1,techUsed2,title,projectImageUrl,Description,techUsed3,techUsed4,step1
-                        ,step2,step3,step4;
+                        ,step2,step3,step4,projectId;
+                try
+                {
+                    projectId=snapshot.child("Id").getValue().toString();
+                } catch (Exception e)
+                {
+                    projectId="";
+                    e.printStackTrace();
+                }
                 try
                 {
                     techUsed1=snapshot.child("tech used 1").getValue().toString();
@@ -121,7 +129,7 @@ public class FeedFragment extends Fragment {
                 }
 
                 Model model=new Model(techUsed1,techUsed2,title,projectImageUrl,Description,
-                        techUsed3,techUsed4,step1,step2,step3,step4);
+                        techUsed3,techUsed4,step1,step2,step3,step4,projectId);
                 ModelList.add(model);
                 adapter.notifyDataSetChanged();
             }
