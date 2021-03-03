@@ -39,7 +39,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Bitmap bitmap;
         ImageDownloader task= new ImageDownloader();
         try {
@@ -52,8 +52,6 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.TechUsed1.setText(modelList.get(position).getTechUsed1());
         holder.TechUsed2.setText(modelList.get(position).getTechUsed2());
         String description=modelList.get(position).getDescription();
-        
-        
         if(description.length() > 10)
             holder.description.setText(String.format("%s...", description.substring(0, 9)));
         else
@@ -75,6 +73,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
                 intent.putExtra("tech used 2",modelList.get(position).getTechUsed2());
                 intent.putExtra("description",modelList.get(position).getDescription());
                 //intent.putExtra("image", finalBitmap);
+                intent.putExtra("projectId",modelList.get(position).getProjectId());
                 context.startActivity(intent);
             }
         });
