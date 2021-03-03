@@ -2,18 +2,19 @@ package com.technocrats.ryftofficial;
 
 public class Model {
     String techUsed1,techUsed2,title,projectImageUrl,Description,techUsed3,techUsed4,step1
-            ,step2,step3,step4;
+            ,step2,step3,step4,projectId;
 
     public Model() {
     }
 
     public Model(String techUsed1, String techUsed2, String title,String projectImageUrl,
                  String Description,String techUsed3,String techUsed4,String step1,
-                 String step2,String step3,String step4) {
+                 String step2,String step3,String step4,String projectId) {
         this.step1=step1;
         this.step2=step2;
         this.step3=step3;
         this.step4=step4;
+        this.projectId=projectId;
         this.techUsed3=techUsed3;
         this.techUsed4=techUsed4;
         this.techUsed1 = techUsed1;
@@ -21,6 +22,14 @@ public class Model {
         this.title = title;
         this.projectImageUrl=projectImageUrl;
         this.Description=Description;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
     public String getStep1() {
