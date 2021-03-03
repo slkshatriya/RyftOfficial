@@ -44,11 +44,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         mAuth=FirebaseAuth.getInstance();
-        FacebookSdk.sdkInitialize(getApplicationContext());
-
         loginButton=findViewById(R.id.facebookLoginInButton);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("831473135278-01642e3pthvh8kn13jr8jf7o8cbd42or.apps.googleusercontent.com")
@@ -126,10 +125,15 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
+        else
+            {
+                Toast.makeText(getApplicationContext(),"failed..here",Toast.LENGTH_SHORT).show();
+            }
     }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            Toast.makeText(getApplicationContext(),"handle failed",Toast.LENGTH_SHORT).show();
 
             FirebaseGoogleAuth(account);
 
@@ -150,12 +154,23 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
                     FirebaseUser user=mAuth.getCurrentUser();
+                    redirectUser(user);
+                    Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
 
-                }
+                } else
+                    {
+                        Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                    }
             }
         });
     }
+    private void redirectUser(FirebaseUser user)
+    {       Toast.makeText(getApplicationContext(),"redirecting",Toast.LENGTH_SHORT).show();
+            Intent i= new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(i);
+            finish();
+    }
 
 }
+
