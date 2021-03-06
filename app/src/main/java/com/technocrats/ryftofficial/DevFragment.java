@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,10 +28,10 @@ public class DevFragment extends Fragment {
     TextView techUsed2TextView,techUsed1TextView,
             titleTextView,techUsed3TextView,techUsed4TextView,
             step1TextView,step2TextView,step3TextView,step4TextView;
-    EditText submitLinkEdittext;
+    EditText submitLinkEditText;
     Intent intent;
     Button submitButton,requestCertificateButton;
-    String username,evaluated;
+    String userEmail,evaluated;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,27 +55,39 @@ public class DevFragment extends Fragment {
         step4TextView=getView().findViewById(R.id.longDescription3);
         submitButton=getView().findViewById(R.id.cSubmit);
         requestCertificateButton=getView().findViewById(R.id.rCert);
-        submitLinkEdittext=getView().findViewById(R.id.submitCodeLink);
+        submitLinkEditText=getView().findViewById(R.id.submitCodeLink);
         final String projectId=intent.getExtras().getString("projectId");
-        username="username";
+        FirebaseAuth mauth=FirebaseAuth.getInstance();
+        final FirebaseUser user=mauth.getCurrentUser();
+        if (user != null) {
+            userEmail=user.getEmail();
+        } else
+            {
+                userEmail=null;
+            }
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String link=submitLinkEdittext.getText().toString();
-                if(link.equals(""))
+                String link=submitLinkEditText.getText().toString();
+                if(link.equals("") )
                 {
                     Toast.makeText(getContext(),"Please Provide a link"
                             ,Toast.LENGTH_SHORT).show();
                 }
-                else
+                else if(user!=null)
                     {
                         HashMap<String,String> submission=new HashMap<>();
                         submission.put("link",link);
-                        submission.put("username",username);
+                        submission.put("user email",userEmail);
                         FirebaseDatabase.getInstance().getReference().child("submissions")
                         .child(projectId).push().setValue(submission);
                         Toast.makeText(getContext(),"Link Submitted",Toast.LENGTH_SHORT).show();
+                    }
+                else
+                    {
+                        Intent intent=new Intent(getContext(),MainActivity.class);
+                        startActivity(intent);
                     }
             }
         });
@@ -87,14 +101,14 @@ public class DevFragment extends Fragment {
                             child(projectId).addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                            String user=snapshot.child("username").toString();
+                            String tempEmail=snapshot.child("user email").toString();
                             try {
                                 evaluated = snapshot.child("evaluated").toString();
                             } catch (Exception e)
                             {
                                 evaluated=null;
                             }
-                            if(user.equals(username)&& evaluated != null)
+                            if(userEmail.equals(tempEmail)&& evaluated != null)
                             {   //if user is certified
                                 Toast.makeText(getContext(),"you are certified",Toast.LENGTH_SHORT).show();
                             }
