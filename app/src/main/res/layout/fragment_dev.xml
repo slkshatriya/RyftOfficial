@@ -158,7 +158,7 @@
             android:layout_alignStart="@+id/ProjectTitle"
             android:layout_marginStart="38dp"
             android:layout_marginTop="20dp"
-            android:text="Submit Code Link"
+            android:hint="Submit Code Link"
             android:textSize="20sp"
             android:textStyle="bold" />
         <Button
@@ -188,6 +188,9 @@
             android:textColor="#fff" />
 
     </RelativeLayout>
+
+
+</ScrollView>
 
 
 </ScrollView>
