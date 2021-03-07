@@ -1,5 +1,6 @@
 package com.technocrats.ryftofficial;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,10 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -21,7 +18,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 
 public class DevFragment extends Fragment {
@@ -55,7 +55,7 @@ public class DevFragment extends Fragment {
         step4TextView=getView().findViewById(R.id.longDescription3);
         submitButton=getView().findViewById(R.id.cSubmit);
         requestCertificateButton=getView().findViewById(R.id.rCert);
-        submitLinkEditText=getView().findViewById(R.id.submitCodeLink);
+       // submitLinkEditText=getView().findViewById(R.id.submitCodeLink);
         final String projectId=intent.getExtras().getString("projectId");
         FirebaseAuth mauth=FirebaseAuth.getInstance();
         final FirebaseUser user=mauth.getCurrentUser();
@@ -69,26 +69,41 @@ public class DevFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String link=submitLinkEditText.getText().toString();
-                if(link.equals("") )
-                {
-                    Toast.makeText(getContext(),"Please Provide a link"
-                            ,Toast.LENGTH_SHORT).show();
-                }
-                else if(user!=null)
-                    {
-                        HashMap<String,String> submission=new HashMap<>();
-                        submission.put("link",link);
-                        submission.put("user email",userEmail);
-                        FirebaseDatabase.getInstance().getReference().child("submissions")
-                        .child(projectId).push().setValue(submission);
-                        Toast.makeText(getContext(),"Link Submitted",Toast.LENGTH_SHORT).show();
-                    }
-                else
-                    {
-                        Intent intent=new Intent(getContext(),MainActivity.class);
-                        startActivity(intent);
-                    }
+                LayoutInflater li = LayoutInflater.from(getContext());
+                View promptsView = li.inflate(R.layout.prompts, null);
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+                // set prompts.xml to alertdialog builder
+                alertDialogBuilder.setView(promptsView);
+
+                final EditText userInput = (EditText) promptsView
+                        .findViewById(R.id.editTextDialogUserInput);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        // get user input and set it to result
+                                        // edit text
+                                        Toast.makeText(getContext(), "code submitted succesfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
             }
         });
 

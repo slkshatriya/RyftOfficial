@@ -5,20 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+
+import androidx.fragment.app.Fragment;
 
 public class ChatFragment extends Fragment {
     ArrayAdapter arrayAdapter;
@@ -34,7 +24,7 @@ public class ChatFragment extends Fragment {
         return view;
     }
 
-    @Override
+   /* @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         groups=new ArrayList<String>();
@@ -49,5 +39,5 @@ public class ChatFragment extends Fragment {
         //get list of enrolled chat groups from firebase
 
         
-    }
+    }*/
 }
