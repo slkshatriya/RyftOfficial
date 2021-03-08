@@ -28,6 +28,7 @@ public class FeedFragment extends Fragment {
     RecyclerView mRecyclerView;
     CustomAdapter adapter;
     View view;
+    String category;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,102 +37,30 @@ public class FeedFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_feed, container, false);
 
         setProdItemRecycler(ModelList);
+        try
+        {
+            Intent intent=getActivity().getIntent();
+            category=intent.getStringExtra("category");
+        } catch (Exception e)
+        {
+            category=null;
+        }
 
         FirebaseDatabase.getInstance().getReference().child("posts").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String techUsed1,techUsed2,title,projectImageUrl,Description,techUsed3,techUsed4,step1
-                        ,step2,step3,step4,projectId;
-                try
-                {
-                    projectId=snapshot.child("Id").getValue().toString();
-                } catch (Exception e)
-                {
-                    projectId="";
+                String tempCategory;
+                try{
+                    tempCategory=snapshot.child("category").getValue().toString();
+                }
+                catch (Exception e)
+                {   tempCategory="";
                     e.printStackTrace();
                 }
-                try
-                {
-                    techUsed1=snapshot.child("tech used 1").getValue().toString();
-                } catch(Exception e)
-                {
-                    techUsed1="";
-                }
-                try
-                {
-                    techUsed2=snapshot.child("tech used 2").getValue().toString();
-                } catch(Exception e)
-                {
-                    techUsed2="";
-                }
-                try
-                {
-                    techUsed3=snapshot.child("tech used 3").getValue().toString();
-                } catch(Exception e)
-                {
-                    techUsed3="";
-                }
-                try
-                {
-                    techUsed4=snapshot.child("tech used 4").getValue().toString();
-                } catch(Exception e)
-                {
-                    techUsed4="";
-                }
-                try
-                {
-                    title=snapshot.child("title").getValue().toString();
-                } catch(Exception e)
-                {
-                    title="";
-                }
-                try
-                {
-                    Description=snapshot.child("description").getValue().toString();
-                } catch(Exception e)
-                {
-                    Description="";
-                }
-                try
-                {
-                    step1=snapshot.child("step 1").getValue().toString();
-                } catch(Exception e)
-                {
-                    step1="";
-                }
-                try
-                {
-                    step2=snapshot.child("step 2").getValue().toString();
-                } catch(Exception e)
-                {
-                    step2="";
-                }
-                try
-                {
-                    step3=snapshot.child("step 3").getValue().toString();
-                } catch(Exception e)
-                {
-                    step3="";
-                }
-                try
-                {
-                    step4=snapshot.child("step 4").getValue().toString();
-                } catch(Exception e)
-                {
-                    step4="";
-                }
-                try
-                {
-                    projectImageUrl=snapshot.child("projectImageUrl").getValue().toString();
-                } catch(Exception e)
-                {
-                    projectImageUrl="";
-                }
-
-                Model model=new Model(techUsed1,techUsed2,title,projectImageUrl,Description,
-                        techUsed3,techUsed4,step1,step2,step3,step4,projectId);
-                ModelList.add(model);
-                adapter.notifyDataSetChanged();
+                if(category==null)
+                { createFeedItem(snapshot); }
+                else if(tempCategory.equals(category))
+                    { createFeedItem(snapshot); }
             }
 
             @Override
@@ -168,11 +97,99 @@ public class FeedFragment extends Fragment {
 
     }
 
-    public void nextActivity(View view)
+    private void createFeedItem(DataSnapshot snapshot)
     {
-        Intent intent = new Intent(getActivity(), ProjectDetailActivity.class);
+        String techUsed1,techUsed2,title,projectImageUrl,Description,techUsed3,techUsed4,step1
+                ,step2,step3,step4,projectId;
+        try
+        {
+            projectId=snapshot.child("Id").getValue().toString();
+        } catch (Exception e)
+        {
+            projectId="";
+            e.printStackTrace();
+        }
+        try
+        {
+            techUsed1=snapshot.child("tech used 1").getValue().toString();
+        } catch(Exception e)
+        {
+            techUsed1="";
+        }
+        try
+        {
+            techUsed2=snapshot.child("tech used 2").getValue().toString();
+        } catch(Exception e)
+        {
+            techUsed2="";
+        }
+        try
+        {
+            techUsed3=snapshot.child("tech used 3").getValue().toString();
+        } catch(Exception e)
+        {
+            techUsed3="";
+        }
+        try
+        {
+            techUsed4=snapshot.child("tech used 4").getValue().toString();
+        } catch(Exception e)
+        {
+            techUsed4="";
+        }
+        try
+        {
+            title=snapshot.child("title").getValue().toString();
+        } catch(Exception e)
+        {
+            title="";
+        }
+        try
+        {
+            Description=snapshot.child("description").getValue().toString();
+        } catch(Exception e)
+        {
+            Description="";
+        }
+        try
+        {
+            step1=snapshot.child("step 1").getValue().toString();
+        } catch(Exception e)
+        {
+            step1="";
+        }
+        try
+        {
+            step2=snapshot.child("step 2").getValue().toString();
+        } catch(Exception e)
+        {
+            step2="";
+        }
+        try
+        {
+            step3=snapshot.child("step 3").getValue().toString();
+        } catch(Exception e)
+        {
+            step3="";
+        }
+        try
+        {
+            step4=snapshot.child("step 4").getValue().toString();
+        } catch(Exception e)
+        {
+            step4="";
+        }
+        try
+        {
+            projectImageUrl=snapshot.child("projectImageUrl").getValue().toString();
+        } catch(Exception e)
+        {
+            projectImageUrl="";
+        }
 
-        startActivity(intent);
+        Model model=new Model(techUsed1,techUsed2,title,projectImageUrl,Description,
+                techUsed3,techUsed4,step1,step2,step3,step4,projectId);
+        ModelList.add(model);
+        adapter.notifyDataSetChanged();
     }
-
 }
