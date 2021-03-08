@@ -57,7 +57,7 @@ public class DetailsFragment extends Fragment {
         titleTextView=getView().findViewById(R.id.dProjectTitle);
         techUsed1TextView=getView().findViewById(R.id.dtechUsed1);
         techUsed2TextView=getView().findViewById(R.id.dtechUsed2);
-        imageView=getView().findViewById(R.id.projectImg);
+        imageView=getView().findViewById(R.id.dprojectImg);
         FirebaseAuth mauth=FirebaseAuth.getInstance();
         final FirebaseUser user=mauth.getCurrentUser();
         String userId = null;
@@ -106,8 +106,9 @@ public class DetailsFragment extends Fragment {
             bitmap=null;
             e.printStackTrace();
         }
-        imageView.setImageBitmap(bitmap);
-
+        if(bitmap!=null) {
+            imageView.setImageBitmap(bitmap);
+        }
     }
 
     public static class ImageDownloader extends AsyncTask<String,Void,Bitmap>
