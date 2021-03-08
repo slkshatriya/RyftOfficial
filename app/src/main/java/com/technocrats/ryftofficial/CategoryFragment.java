@@ -34,50 +34,44 @@ public class CategoryFragment extends Fragment {
         ml.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(),FeedFragment.class);
-                intent.putExtra("category","ml");
-                startActivity(intent);
+               addFilters("ml");
             }
         });
         Ios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(),FeedFragment.class);
-                intent.putExtra("category","ios");
-                startActivity(intent);
+                addFilters("ios");
             }
         });
         Game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(),FeedFragment.class);
-                intent.putExtra("category","game");
-                startActivity(intent);
+                addFilters("game");
             }
         });
         android.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(),FeedFragment.class);
-                intent.putExtra("category","android");
-                startActivity(intent);
+                addFilters("android");
             }
         });
         web.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(),FeedFragment.class);
-                intent.putExtra("category","web");
-                startActivity(intent);
+                addFilters("web");
             }
         });
         blockChain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(),FeedFragment.class);
-                intent.putExtra("category","blockChain");
-                startActivity(intent);
+                addFilters("blockChain");
             }
         });
+    }
+    public void addFilters(String filter)
+    {
+                Intent intent=new Intent(getContext(),FeedFragment.class);
+                intent.putExtra("category",filter);
+                startActivity(intent);
     }
 }
