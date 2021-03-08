@@ -81,7 +81,6 @@ public class DevFragment extends Fragment {
                 final EditText userInput = promptsView
                         .findViewById(R.id.editTextDialogUserInput);
 
-                final String link=userInput.getText().toString();
                 // set dialog message
                 alertDialogBuilder
                         .setCancelable(false)
@@ -90,6 +89,7 @@ public class DevFragment extends Fragment {
                                     public void onClick(DialogInterface dialog,int id) {
                                         // get user input and set it to result
                                         // edit text
+                                        String link=userInput.getText().toString();
                                         if(link.equals("") )
                                         {
                                             Toast.makeText(getContext(),"Please Provide a link"
