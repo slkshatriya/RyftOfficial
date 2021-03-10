@@ -34,6 +34,17 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_list, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemView);
         context=itemView.getContext();
+        viewHolder.setOnClickListener(new ViewHolder.ClickListener() {
+            @Override
+            public void onItemClick() {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+        });
 
         return viewHolder;
     }
