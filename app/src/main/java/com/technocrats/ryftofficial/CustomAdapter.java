@@ -9,14 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
     FeedFragment feedItem;
@@ -52,12 +52,11 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.TechUsed1.setText(modelList.get(position).getTechUsed1());
         holder.TechUsed2.setText(modelList.get(position).getTechUsed2());
         String description=modelList.get(position).getDescription();
-        if(description.length() > 10)
+        if(description.length() > 20)
             holder.description.setText(String.format("%s...", description.substring(0, 9)));
         else
             holder.description.setText(description);
         holder.mProjectImg.setImageBitmap(bitmap);
-        Bitmap finalBitmap = bitmap;
         holder.mSeeDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +71,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
                 intent.putExtra("tech used 1",modelList.get(position).getTechUsed1());
                 intent.putExtra("tech used 2",modelList.get(position).getTechUsed2());
                 intent.putExtra("description",modelList.get(position).getDescription());
-                //intent.putExtra("image", finalBitmap);
+                intent.putExtra("image url", modelList.get(position).getProjectImageUrl());
                 intent.putExtra("projectId",modelList.get(position).getProjectId());
                 context.startActivity(intent);
             }
