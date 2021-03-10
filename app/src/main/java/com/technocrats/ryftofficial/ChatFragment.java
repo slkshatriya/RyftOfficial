@@ -1,9 +1,11 @@
 package com.technocrats.ryftofficial;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -56,6 +58,7 @@ public class ChatFragment extends Fragment {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             groups.add(snapshot.getValue().toString());
+                            keys.add(snapshot.getKey());
                             arrayAdapter.notifyDataSetChanged();
                         }
 
@@ -80,6 +83,14 @@ public class ChatFragment extends Fragment {
                         }
                     });
         }
-        
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(getContext(),ChatActivity.class);
+                intent.putExtra("key",keys.get(i));
+                startActivity(intent);
+            }
+        });
     }
 }
