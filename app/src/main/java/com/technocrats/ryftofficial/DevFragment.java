@@ -11,6 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -18,17 +23,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
+import java.util.HashMap;
 
 
 public class DevFragment extends Fragment {
     TextView techUsed2TextView,techUsed1TextView,
             titleTextView,techUsed3TextView,techUsed4TextView,
             step1TextView,step2TextView,step3TextView,step4TextView;
-    EditText submitLinkEditText;
     Intent intent;
     Button submitButton,requestCertificateButton;
     String userEmail,evaluated;
@@ -55,7 +56,6 @@ public class DevFragment extends Fragment {
         step4TextView=getView().findViewById(R.id.longDescription3);
         submitButton=getView().findViewById(R.id.cSubmit);
         requestCertificateButton=getView().findViewById(R.id.rCert);
-       // submitLinkEditText=getView().findViewById(R.id.submitCodeLink);
         final String projectId=intent.getExtras().getString("projectId");
         FirebaseAuth mauth=FirebaseAuth.getInstance();
         final FirebaseUser user=mauth.getCurrentUser();
@@ -69,6 +69,7 @@ public class DevFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 LayoutInflater li = LayoutInflater.from(getContext());
                 View promptsView = li.inflate(R.layout.prompts, null);
 
@@ -77,7 +78,7 @@ public class DevFragment extends Fragment {
                 // set prompts.xml to alertdialog builder
                 alertDialogBuilder.setView(promptsView);
 
-                final EditText userInput = (EditText) promptsView
+                final EditText userInput = promptsView
                         .findViewById(R.id.editTextDialogUserInput);
 
                 // set dialog message
@@ -88,12 +89,31 @@ public class DevFragment extends Fragment {
                                     public void onClick(DialogInterface dialog,int id) {
                                         // get user input and set it to result
                                         // edit text
-                                        Toast.makeText(getContext(), "code submitted succesfully", Toast.LENGTH_SHORT).show();
+                                        String link=userInput.getText().toString();
+                                        if(link.equals("") )
+                                        {
+                                            Toast.makeText(getContext(),"Please Provide a link"
+                                                    ,Toast.LENGTH_SHORT).show();
+                                        }
+                                        else if(user!=null)
+                                        {
+                                            HashMap<String,String> submission=new HashMap<>();
+                                            submission.put("link",link);
+                                            submission.put("user email",userEmail);
+                                            FirebaseDatabase.getInstance().getReference().child("submissions")
+                                                    .child(projectId).push().setValue(submission);
+                                            Toast.makeText(getContext(),"code submitted successfully",Toast.LENGTH_SHORT).show();
+                                        }
+                                        else
+                                        {
+                                            Intent intent=new Intent(getContext(),MainActivity.class);
+                                            startActivity(intent);
+                                        }
                                     }
                                 })
                         .setNegativeButton("Cancel",
                                 new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
+                                    public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();
                                     }
                                 });
@@ -105,6 +125,7 @@ public class DevFragment extends Fragment {
                 alertDialog.show();
 
             }
+
         });
 
         requestCertificateButton.setOnClickListener(new View.OnClickListener() {
@@ -125,31 +146,21 @@ public class DevFragment extends Fragment {
                             }
                             if(userEmail.equals(tempEmail)&& evaluated != null)
                             {   //if user is certified
-                                Toast.makeText(getContext(),"you are certified",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(),
+                                        "you are certified , you will recieve your certificate by email "
+                                        ,Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
-                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                        }
-
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
                         @Override
-                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                        }
-
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
                         @Override
-                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                        }
-
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
                         @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
+                        public void onCancelled(@NonNull DatabaseError error) { }
                     });
-
             }
         });
 
