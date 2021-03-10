@@ -1,10 +1,13 @@
 package com.technocrats.ryftofficial;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,44 +37,47 @@ public class CategoryFragment extends Fragment {
         ml.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               addFilters("ml");
+                addFilter("ml");
             }
         });
         Ios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFilters("ios");
+                addFilter("ios");
             }
         });
         Game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFilters("game");
+                addFilter("game");
             }
         });
         android.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFilters("android");
+                addFilter("android");
             }
         });
         web.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFilters("web");
+                addFilter("web");
             }
         });
         blockChain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFilters("blockChain");
+                addFilter("blockChain");
             }
         });
     }
-    public void addFilters(String filter)
+
+    public void addFilter(String filter)
     {
-                Intent intent=new Intent(getContext(),FeedFragment.class);
-                intent.putExtra("category",filter);
-                startActivity(intent);
+        SharedPreferences.Editor editor= (SharedPreferences.Editor)
+                getContext().getSharedPreferences("preferences", Context.MODE_PRIVATE).edit();
+        editor.putString("filter",filter);
+        editor.apply();
+        Toast.makeText(getContext(),"Filter applied successfully !!",Toast.LENGTH_SHORT).show();
     }
 }
