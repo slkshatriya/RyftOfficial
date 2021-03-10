@@ -1,6 +1,8 @@
 package com.technocrats.ryftofficial;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,8 +41,8 @@ public class FeedFragment extends Fragment {
         setProdItemRecycler(ModelList);
         try
         {
-            Intent intent=getActivity().getIntent();
-            category=intent.getStringExtra("category");
+            SharedPreferences preferences=getContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+            category=preferences.getString("filter",null);
         } catch (Exception e)
         {
             category=null;
